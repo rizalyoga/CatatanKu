@@ -1,50 +1,38 @@
 import React from "react";
-import { getNotes } from "@/lib/data";
-import clsx from "clsx";
-
-import CardNote from "@/components/cards/CardNote";
+import { getNotePages } from "@/lib/data";
+import { Suspense } from "react";
 import CreateButton from "@/components/buttons/CreateButton";
+import Search from "@/components/search/Search";
+import Pagination from "@/components/paginations/Pagination";
+import NotesContent from "@/components/contents/NotesContents";
+import ListNoteSkeleton from "@/components/skeleton/ListNoteSkeleton";
 
-const NotesPage = async () => {
-  const notes = await getNotes();
-
-  const setStatus = (status: string) => {
-    switch (status) {
-      case "waited":
-        return "waited";
-      case "on-progress":
-        return "on-progress";
-      case "done":
-        return "done";
-    }
+const NotesPage = async ({
+  searchParams,
+}: {
+  searchParams: {
+    query?: string;
+    page?: string;
   };
+}) => {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const totalPage = await getNotePages(query);
 
   return (
     <section className="bg-blue-100 min-h-screen p-10">
-      <div className="max-w-screen-xl mx-auto ">
+      <div className="max-w-screen-xl mx-auto">
         <h1 className="font-bold text-3xl mt-4 text-slate-700">
           Daftar Catatan
         </h1>
+        <Search />
         <CreateButton />
-
-        <div
-          className={clsx(
-            "notes-container grid grid-cols-1 gap-4",
-            "md:grid-cols-2",
-            "xl:grid-cols-3"
-          )}
-        >
-          {notes.reverse().map((note) => (
-            <CardNote
-              id={note.id}
-              key={note.id}
-              title={note.title}
-              content={note.content}
-              status={setStatus(note.status) ?? "waited"}
-              createdAt={note.createdAt.toString()}
-              updatedAt={note.updatedAt.toString()}
-            />
-          ))}
+        <Suspense key={query + currentPage} fallback={<ListNoteSkeleton />}>
+          <NotesContent query={query} currentPage={currentPage} />
+        </Suspense>
+        <div className="flex justify-center items-center mt-6">
+          <Pagination totalPages={totalPage} />
         </div>
       </div>
     </section>

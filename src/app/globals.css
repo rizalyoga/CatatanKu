@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.backgroud-grid {
+  background-image: url("/public/assets/grid.svg");
+}
