@@ -2,13 +2,14 @@
 
 import React from "react";
 import clsx from "clsx";
-import { saveNote } from "@/lib/actions";
+import { updateNote } from "@/lib/actions";
 import { useFormState } from "react-dom";
-
+import type { Notes } from "@prisma/client";
 import SubmitButtons from "../buttons/SubmitButton";
 
-const CreateNoteForm = () => {
-  const [state, formAction] = useFormState(saveNote, null);
+const UpdateNoteForm = ({ note }: { note: Notes }) => {
+  const updateNoteWithId = updateNote.bind(null, note.id);
+  const [state, formAction] = useFormState(updateNoteWithId, null);
 
   return (
     <>
@@ -18,13 +19,13 @@ const CreateNoteForm = () => {
             type="text"
             name="title"
             id="title"
-            placeholder="Judul"
-            required
+            placeholder="Title"
             className={clsx(
               "text-slate-600 font-medium border-none text-lg px-2 py-2",
               "placeholder:font-semibold placeholder:text-xl",
               "focus:border-none focus:outline-none"
             )}
+            defaultValue={note.title}
           />
           <div id="title-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.Error?.title}</p>
@@ -32,12 +33,12 @@ const CreateNoteForm = () => {
           <textarea
             name="content"
             id="content"
-            placeholder="Tulis isi kontenmu..."
-            required
+            placeholder="Write your content..."
             className={clsx(
               "border-none mt-2 px-2 py-2 text-slate-600",
               "focus:border-none focus:outline-none"
             )}
+            defaultValue={note.content}
             rows={10}
           />
           <div id="content-error" aria-live="polite" aria-atomic="true">
@@ -48,7 +49,7 @@ const CreateNoteForm = () => {
             <select
               name="status"
               id="status"
-              defaultValue={""}
+              defaultValue={note.status}
               required
               className={clsx(
                 "bg-white px-3 py-2 border border-slate-200  text-slate-500 rounded-md appearance-none",
@@ -58,7 +59,7 @@ const CreateNoteForm = () => {
               <option className="font-medium" disabled={true} value="">
                 🏷️ Progress
               </option>
-              <option className="py-2" value="waited">
+              <option className="my-2" value="waited">
                 ⌛ Waited
               </option>
               <option className="py-2" value="on-progress">
@@ -68,62 +69,15 @@ const CreateNoteForm = () => {
                 ✅ Done
               </option>
             </select>
-
-            <SubmitButtons label="save" />
+            <SubmitButtons label="edit" />
           </div>
           <div id="message-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.message}</p>
           </div>
         </div>
       </form>
-
-      {/* <form action="">
-        <div className="mt-4">
-          <label
-            htmlFor="title"
-            className="block text-medium font-semibold text-slate-800"
-          >
-            Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            className={clsx(
-              "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5",
-              "focus:ring-blue-400 focus:border-blue-500 focus:outline-blue-500 focus:ring-2"
-            )}
-            placeholder="Title note..."
-            required
-          />
-        </div>
-        <div className="mt-4">
-          <label
-            htmlFor="content"
-            className="block text-medium font-semibold text-slate-800"
-          >
-            Content
-          </label>
-          <textarea
-            name="content"
-            id="contetnt"
-            className={clsx(
-              "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5",
-              "focus:ring-blue-400 focus:border-blue-500 focus:outline-blue-500 focus:ring-2"
-            )}
-            placeholder="Note content..."
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="text-white text-center text-sm w-full px-5 py-3 mt-4 font-medium rounded-md bg-blue-700 hover:bg-blue-800"
-        >
-          Save
-        </button>
-      </form> */}
     </>
   );
 };
 
-export default CreateNoteForm;
+export default UpdateNoteForm;

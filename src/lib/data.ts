@@ -9,3 +9,15 @@ export const getNotes = async () => {
     throw new Error("Failed to fetch notes data !");
   }
 };
+
+export const getNoteById = async (id: string) => {
+  try {
+    const note = await prisma.notes.findUnique({
+      where: { id },
+    });
+
+    return note;
+  } catch (error) {
+    throw new Error("Failed to fetch note data !");
+  }
+};

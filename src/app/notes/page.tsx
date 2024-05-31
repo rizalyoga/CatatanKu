@@ -21,19 +21,22 @@ const NotesPage = async () => {
 
   return (
     <section className="bg-blue-100 min-h-screen p-10">
-      <div className="max-w-screen-xl mx-auto">
-        <h1 className="font-bold text-xl mt-4 text-slate-700">Notes</h1>
+      <div className="max-w-screen-xl mx-auto ">
+        <h1 className="font-bold text-3xl mt-4 text-slate-700">
+          Daftar Catatan
+        </h1>
         <CreateButton />
 
         <div
           className={clsx(
-            "notes-container grid grid-cols-1 gap-6",
+            "notes-container grid grid-cols-1 gap-4",
             "md:grid-cols-2",
             "xl:grid-cols-3"
           )}
         >
           {notes.reverse().map((note) => (
             <CardNote
+              id={note.id}
               key={note.id}
               title={note.title}
               content={note.content}

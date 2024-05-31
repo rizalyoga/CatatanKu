@@ -11,6 +11,7 @@ const NotesSchema = z.object({
   status: z.string(),
 });
 
+// Save Action
 export const saveNote = async (prevState: any, formData: FormData) => {
   const validatedFields = NotesSchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -36,4 +37,50 @@ export const saveNote = async (prevState: any, formData: FormData) => {
 
   revalidatePath("/notes");
   redirect("/notes");
+};
+
+// Update Action
+export const updateNote = async (
+  id: string,
+  prevState: any,
+  formData: FormData
+) => {
+  const validatedFields = NotesSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
+
+  if (!validatedFields.success) {
+    return {
+      Error: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    await prisma.notes.update({
+      data: {
+        title: validatedFields.data.title,
+        content: validatedFields.data.content,
+        status: validatedFields.data.status,
+      },
+      where: { id },
+    });
+  } catch (error) {
+    return { message: "Failed to update note" };
+  }
+
+  revalidatePath("/notes");
+  redirect("/notes");
+};
+
+// Delete Action
+export const deleteNote = async (id: string) => {
+  try {
+    await prisma.notes.delete({
+      where: { id },
+    });
+  } catch (error) {
+    return { message: "Failed to delete note" };
+  }
+
+  revalidatePath("/notes");
 };
