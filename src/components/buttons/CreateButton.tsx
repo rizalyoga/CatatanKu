@@ -7,11 +7,11 @@ const CreateButton = () => {
     <Link href={"/notes/create"}>
       <button
         className={clsx(
-          "mb-4 px-4 py-3 font-medium rounded-md bg-blue-500 text-white transform duration-200",
+          "mb-5 px-4 py-3 font-medium rounded-md bg-blue-500 text-white transform duration-200",
           "hover:bg-blue-600"
         )}
       >
-        + Catatan Baru
+        ➕ Catatan Baru
       </button>
     </Link>
   );

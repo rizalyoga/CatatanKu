@@ -5,7 +5,6 @@ const ITEMS_PER_PAGE = 6;
 export const getNotes = async (query: string, currentPage: number) => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     const notes = await prisma.notes.findMany({
       skip: offset,
       take: ITEMS_PER_PAGE,
@@ -24,6 +23,9 @@ export const getNotes = async (query: string, currentPage: number) => {
             },
           },
         ],
+      },
+      orderBy: {
+        createdAt: "desc", // Mengurutkan berdasarkan createdAt dari yang terbaru ke yang terlama
       },
     });
 

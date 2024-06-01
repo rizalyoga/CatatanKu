@@ -21,9 +21,9 @@ const NotesPage = async ({
   const totalPage = await getNotePages(query);
 
   return (
-    <section className="bg-blue-100 min-h-screen p-10">
-      <div className="max-w-screen-xl mx-auto">
-        <h1 className="font-bold text-3xl mt-4 text-slate-700">
+    <section className="bg-blue-100 min-h-screen py-10 md:p-10 ">
+      <div className="w-full px-2 md:mx-auto md:max-w-screen-xl">
+        <h1 className="font-bold text-2xl mt-4 text-slate-700 md:text-3xl">
           Daftar Catatan
         </h1>
         <Search />

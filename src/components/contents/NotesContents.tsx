@@ -1,5 +1,5 @@
 import React from "react";
-import { getNotes, getNotePages } from "@/lib/data";
+import { getNotes } from "@/lib/data";
 import clsx from "clsx";
 import CardNote from "@/components/cards/CardNote";
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className=" min-h-screen flex justify-center items-center flex-col background-grid bg-orange-100">
-      <h1 className="text-blue-400 text-6xl text-center font-bold mb-5 tracking-tighter">
+      <h1 className="text-blue-400 text-6xl text-center font-extrabold mb-5 tracking-tighter">
         CatatanKu
       </h1>
       <Image
