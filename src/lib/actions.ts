@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 const NotesSchema = z.object({
   title: z.string().min(3),
-  content: z.string(),
+  content: z.string().min(10),
   status: z.string(),
 });
 

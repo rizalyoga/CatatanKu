@@ -12,18 +12,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ProgressBarProviders>
-          {children}
-          {modal}
-        </ProgressBarProviders>
+        <ProgressBarProviders>{children}</ProgressBarProviders>
       </body>
     </html>
   );

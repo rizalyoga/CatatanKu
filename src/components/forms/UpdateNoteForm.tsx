@@ -1,19 +1,59 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { updateNote } from "@/lib/actions";
 import { useFormState } from "react-dom";
 import type { Notes } from "@prisma/client";
 import SubmitButtons from "../buttons/SubmitButton";
 
+import "react-quill/dist/quill.snow.css";
+import { formats, modules } from "@/lib/utils";
+
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+});
+
 const UpdateNoteForm = ({ note }: { note: Notes }) => {
   const updateNoteWithId = updateNote.bind(null, note.id);
   const [state, formAction] = useFormState(updateNoteWithId, null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [formData, setFormData] = useState({
+    title: note.title,
+    content: note.content,
+    status: note.status,
+  });
+
+  const handleChange = (value: string) => {
+    setFormData({
+      ...formData,
+      content: value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("content", formData.content);
+    formDataToSend.append("status", formData.status);
+
+    try {
+      await formAction(formDataToSend);
+      setIsSubmitting(false);
+    } catch (error) {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-      <form action={formAction} className=" bg-white rounded-md p-6 mt-6">
+      <form onSubmit={handleSubmit} className=" bg-white rounded-md p-6 mt-6">
         <div className="flex flex-col border border-slate-200 rounded-md p-2">
           <input
             type="text"
@@ -25,12 +65,18 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
               "placeholder:font-semibold placeholder:text-xl",
               "focus:border-none focus:outline-none"
             )}
+            onChange={(e) =>
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                title: e.target.value,
+              }))
+            }
             defaultValue={note.title}
           />
           <div id="title-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.Error?.title}</p>
           </div>
-          <textarea
+          {/* <textarea
             name="content"
             id="content"
             placeholder="Write your content..."
@@ -40,10 +86,18 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
             )}
             defaultValue={note.content}
             rows={10}
-          />
+          /> */}
           <div id="content-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.Error?.content}</p>
           </div>
+
+          <ReactQuill
+            modules={modules}
+            formats={formats}
+            onChange={handleChange}
+            value={formData.content}
+            style={{ minHeight: "200px" }}
+          />
 
           <div className="flex justify-between items-center flex-wrap mt-4 border-t border-t-slate-200 pt-2">
             <select
@@ -69,7 +123,7 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
                 ✅ Done
               </option>
             </select>
-            <SubmitButtons label="edit" />
+            <SubmitButtons label="edit" isSubmitting={isSubmitting} />
           </div>
           <div id="message-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.message}</p>

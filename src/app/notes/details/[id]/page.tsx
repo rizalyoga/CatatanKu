@@ -9,19 +9,19 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const note = await getNoteById(id);
 
-  if (!note) {
-    return (
-      <div className="flex justify-center items-center">
-        <h1 className="font-bold text-6xl">LOADING...</h1>
-      </div>
-    );
-  }
+  // if (!note) {
+  //   return (
+  //     <div className="flex justify-center items-center">
+  //       <h1 className="font-bold text-6xl">LOADING...</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <section className="bg-blue-100 min-h-screen flex justify-center items-center">
       <article
         className={clsx(
-          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 -mt-8",
+          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 my-8",
           "lg:max-w-[800px]"
         )}
       >
@@ -40,13 +40,16 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
             )}
           >
             <p className="text-center font-semibold text-xs text-white px-6 py-2 sm:text-sm sm:font-bold">
-              {progressLabelNameStyle(note?.status)}
+              {progressLabelNameStyle(note?.status as string)}
             </p>
           </span>
         </div>
-        <p className="my-6 p-4 bg-slate-50 rounded-md text-slate-600 min-h-[200px] border border-slate-200">
-          {note?.content}
-        </p>
+        <div
+          className="my-6 p-4 bg-slate-50 rounded-md text-slate-600 min-h-[200px] border border-slate-200"
+          dangerouslySetInnerHTML={{ __html: note?.content as string }}
+        >
+          {/* {note?.content} */}
+        </div>
         <span className="flex justify-between items-center gap-2">
           <p className="text-sm font-semibold text-slate-600">
             Terakhir diperbarui pada : {""}

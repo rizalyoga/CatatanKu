@@ -25,7 +25,7 @@ export const getNotes = async (query: string, currentPage: number) => {
         ],
       },
       orderBy: {
-        createdAt: "desc", // Mengurutkan berdasarkan createdAt dari yang terbaru ke yang terlama
+        updatedAt: "desc", // Mengurutkan berdasarkan createdAt dari yang terbaru ke yang terlama
       },
     });
 

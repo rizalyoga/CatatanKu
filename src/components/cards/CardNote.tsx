@@ -9,7 +9,7 @@ import { dateFormat } from "@/lib/dateFormat";
 import { deleteNote } from "@/lib/actions";
 
 import CardSkeleton from "../skeleton/CardSkeleton";
-import { progressLabelStyle, progressLabelNameStyle } from "@/lib/utils";
+import { progressLabelNameStyle } from "@/lib/utils";
 
 const CardNote: React.FC<CardProps> = ({
   title,
@@ -57,23 +57,25 @@ const CardNote: React.FC<CardProps> = ({
           <span className="flex gap-3">
             <Link
               href={`/notes/edit/${id}`}
-              className="text-lg transform duration-200 hover:-translate-y-[2px]"
+              className="text-2xl "
               title="edit note"
             >
               📝
             </Link>
             <form action={() => deleteHandler()}>
-              <button
-                className="text-lg transform duration-200 hover:-translate-y-[2px]"
-                title="delete note"
-              >
+              <button className="text-2xl" title="delete note">
                 🚮
               </button>
             </form>
           </span>
         </span>
         <Link href={`/notes/details/${id}`}>
-          <p className="text-slate-600 line-clamp-3 mt-1">{content}</p>
+          <span
+            className="text-slate-600 line-clamp-3 mt-4"
+            dangerouslySetInnerHTML={{ __html: content }}
+          >
+            {/* {content} */}
+          </span>
         </Link>
       </div>
       <div className="bottom-content flex justify-between items-center mt-2 gap-2">
@@ -90,9 +92,11 @@ const CardNote: React.FC<CardProps> = ({
               : "bg-orange-400"
           )}
         >
-          <p className="text-white text-center text-xs font-semibold basis-[45%] px-4 py-2 md:text-sm">
-            {progressLabelNameStyle(status)}
-          </p>
+          <Link href={`/notes/details/${id}`}>
+            <p className="text-white text-center text-xs font-semibold basis-[45%] px-4 py-2 md:text-sm">
+              {progressLabelNameStyle(status)}
+            </p>
+          </Link>
         </span>
       </div>
     </div>

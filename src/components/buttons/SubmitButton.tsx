@@ -1,25 +1,32 @@
 "use client";
+
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
 
-const SubmitButtons = ({ label }: { label: string }) => {
+const SubmitButtons = ({
+  label,
+  isSubmitting,
+}: {
+  label: string;
+  isSubmitting?: boolean;
+}) => {
   const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
-      disabled={pending}
+      disabled={isSubmitting}
       className={clsx(
         "px-4 py-2 text-white font-semibold rounded-md bg-blue-500 ",
         "hover:bg-blue-600 ",
         "active:bg-blue-500",
-        { "opacity-50 cursor-progress": pending }
+        { "opacity-50 cursor-progress": isSubmitting }
       )}
     >
       {label == "save" ? (
-        <span>{pending ? "Menyimpan..." : "Simpan"}</span>
+        <span>{isSubmitting ? "Menyimpan..." : "Simpan"}</span>
       ) : (
-        <span>{pending ? "Memperbarui..." : "Perbarui"}</span>
+        <span>{isSubmitting ? "Memperbarui..." : "Perbarui"}</span>
       )}
     </button>
   );
