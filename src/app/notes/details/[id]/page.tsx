@@ -3,19 +3,12 @@ import Link from "next/link";
 import { getNoteById } from "@/lib/data";
 import { dateFormat } from "@/lib/dateFormat";
 import clsx from "clsx";
-import { progressLabelStyle, progressLabelNameStyle } from "@/lib/utils";
+import parse from "html-react-parser";
+import { progressLabelNameStyle } from "@/lib/utils";
 
 const DetailsNote = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const note = await getNoteById(id);
-
-  // if (!note) {
-  //   return (
-  //     <div className="flex justify-center items-center">
-  //       <h1 className="font-bold text-6xl">LOADING...</h1>
-  //     </div>
-  //   );
-  // }
 
   return (
     <section className="bg-blue-100 min-h-screen flex justify-center items-center">
@@ -44,11 +37,8 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
             </p>
           </span>
         </div>
-        <div
-          className="my-6 p-4 bg-slate-50 rounded-md text-slate-600 min-h-[200px] border border-slate-200"
-          dangerouslySetInnerHTML={{ __html: note?.content as string }}
-        >
-          {/* {note?.content} */}
+        <div className="my-6 p-4 bg-slate-50 rounded-md text-slate-600 min-h-[200px] border border-slate-200">
+          {parse(`${note?.content}`)}
         </div>
         <span className="flex justify-between items-center gap-2">
           <p className="text-sm font-semibold text-slate-600">

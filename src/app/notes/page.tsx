@@ -6,6 +6,7 @@ import Search from "@/components/search/Search";
 import Pagination from "@/components/paginations/Pagination";
 import NotesContent from "@/components/contents/NotesContents";
 import ListNoteSkeleton from "@/components/skeleton/ListNoteSkeleton";
+import FilterProgress from "@/components/selects/FilterProgress";
 
 const NotesPage = async ({
   searchParams,
@@ -13,12 +14,14 @@ const NotesPage = async ({
   searchParams: {
     query?: string;
     page?: string;
+    progress?: string;
   };
 }) => {
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
+  const progress = searchParams?.progress || "";
 
-  const totalPage = await getNotePages(query);
+  const totalPage = await getNotePages(query, progress);
 
   return (
     <section className="bg-blue-100 min-h-screen py-10 md:p-10 ">
@@ -27,9 +30,19 @@ const NotesPage = async ({
           Daftar Catatan
         </h1>
         <Search />
-        <CreateButton />
-        <Suspense key={query + currentPage} fallback={<ListNoteSkeleton />}>
-          <NotesContent query={query} currentPage={currentPage} />
+        <span className="flex justify-between items-center mb-5">
+          <CreateButton />
+          <FilterProgress />
+        </span>
+        <Suspense
+          key={query + currentPage + progress}
+          fallback={<ListNoteSkeleton />}
+        >
+          <NotesContent
+            query={query}
+            currentPage={currentPage}
+            progress={progress}
+          />
         </Suspense>
         <div className="flex justify-center items-center mt-6">
           <Pagination totalPages={totalPage} />

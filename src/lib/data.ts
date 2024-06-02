@@ -2,25 +2,44 @@ import { prisma } from "@/lib/prisma";
 
 const ITEMS_PER_PAGE = 6;
 
-export const getNotes = async (query: string, currentPage: number) => {
+export const getNotes = async (
+  query: string,
+  currentPage: number,
+  progress: string
+) => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
   try {
     const notes = await prisma.notes.findMany({
       skip: offset,
       take: ITEMS_PER_PAGE,
       where: {
-        OR: [
+        AND: [
           {
-            title: {
-              contains: query,
-              mode: "insensitive", // insensitive : mencari data tidak memperdulikan upper/lowercase
-            },
+            OR: [
+              {
+                title: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+              {
+                content: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+            ],
           },
           {
-            content: {
-              contains: query,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                status: {
+                  contains: progress,
+                  mode: "insensitive",
+                },
+              },
+            ],
           },
         ],
       },
@@ -35,22 +54,36 @@ export const getNotes = async (query: string, currentPage: number) => {
   }
 };
 
-export const getNotePages = async (query: string) => {
+export const getNotePages = async (query: string, progress: string) => {
   try {
     const notes = await prisma.notes.count({
       where: {
-        OR: [
+        AND: [
           {
-            title: {
-              contains: query,
-              mode: "insensitive", // insensitive : mencari data tidak memperdulikan upper/lowercase
-            },
+            OR: [
+              {
+                title: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+              {
+                content: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+            ],
           },
           {
-            content: {
-              contains: query,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                status: {
+                  contains: progress,
+                  mode: "insensitive",
+                },
+              },
+            ],
           },
         ],
       },

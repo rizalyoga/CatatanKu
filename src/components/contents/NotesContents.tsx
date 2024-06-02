@@ -5,15 +5,16 @@ import CardNote from "@/components/cards/CardNote";
 
 interface NotesContentProps {
   query: string;
+  progress: string;
   currentPage: number;
 }
 
 const NotesContent: React.FC<NotesContentProps> = async ({
   query,
   currentPage,
+  progress,
 }) => {
-  const notes = await getNotes(query, currentPage);
-  //   const totalPage = await getNotePages(query);
+  const notes = await getNotes(query, currentPage, progress);
 
   const setStatus = (status: string) => {
     switch (status) {

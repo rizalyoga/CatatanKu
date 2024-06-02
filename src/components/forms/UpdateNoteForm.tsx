@@ -45,8 +45,9 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
 
     try {
       await formAction(formDataToSend);
-      setIsSubmitting(false);
     } catch (error) {
+      console.log(error);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -92,11 +93,11 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
           </div>
 
           <ReactQuill
+            className="editor"
             modules={modules}
             formats={formats}
             onChange={handleChange}
             value={formData.content}
-            style={{ minHeight: "200px" }}
           />
 
           <div className="flex justify-between items-center flex-wrap mt-4 border-t border-t-slate-200 pt-2">
@@ -109,6 +110,12 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
                 "bg-white px-3 py-2 border border-slate-200  text-slate-500 rounded-md appearance-none",
                 "focus:outline-none"
               )}
+              onChange={(e) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  status: e.target.value,
+                }))
+              }
             >
               <option className="font-medium" disabled={true} value="">
                 🏷️ Progress

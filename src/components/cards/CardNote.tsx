@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { CardProps } from "@/types/type";
 import { dateFormat } from "@/lib/dateFormat";
 import { deleteNote } from "@/lib/actions";
+import parse from "html-react-parser";
 
 import CardSkeleton from "../skeleton/CardSkeleton";
 import { progressLabelNameStyle } from "@/lib/utils";
@@ -53,7 +54,15 @@ const CardNote: React.FC<CardProps> = ({
     >
       <div className="top-content">
         <span className="flex justify-between items-start">
-          <h3 className="font-semibold text-slate-700">{title}</h3>
+          <span>
+            <h3 className="font-semibold text-slate-700">{title}</h3>
+            <time
+              className="text-slate-500 basis-[55%] text-xs sm:text-sm"
+              suppressHydrationWarning
+            >
+              {dateFormat(updatedAt)}
+            </time>
+          </span>
           <span className="flex gap-3">
             <Link
               href={`/notes/edit/${id}`}
@@ -70,18 +79,19 @@ const CardNote: React.FC<CardProps> = ({
           </span>
         </span>
         <Link href={`/notes/details/${id}`}>
-          <span
-            className="text-slate-600 line-clamp-3 mt-4"
-            dangerouslySetInnerHTML={{ __html: content }}
-          >
-            {/* {content} */}
+          <span className="text-slate-600 line-clamp-3 mt-4">
+            {parse(content)}
           </span>
         </Link>
       </div>
       <div className="bottom-content flex justify-between items-center mt-2 gap-2">
-        <p className="text-slate-500 basis-[55%] text-sm sm:text-base">
-          {dateFormat(createdAt)}
-        </p>
+        <Link
+          className="text-blue-600 basis-[55%] text-sm font-semibold sm:text-base hover:underline"
+          href={`/notes/details/${id}`}
+        >
+          Baca detail
+        </Link>
+
         <span
           className={clsx(
             "border rounded-full",

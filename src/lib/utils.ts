@@ -22,8 +22,12 @@ export const progressLabelNameStyle = (progress: string) => {
 
 export const modules = {
   toolbar: [
-    [{ header: [1, 2, false] }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ font: [] }],
+    [{ size: [] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ color: ["white", "red", "yellow", "blue", "green", "black"] }],
+    [{ background: ["white", "red", "yellow", "blue", "green", "black"] }],
     [{ list: "ordered" }, { list: "bullet" }],
     ["link", "image"],
     ["clean"],
@@ -40,5 +44,10 @@ export const formats = [
   "list",
   "bullet",
   "link",
+  "color",
   "image",
+  "background",
+  "align",
+  "size",
+  "font",
 ];

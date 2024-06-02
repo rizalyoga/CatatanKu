@@ -74,12 +74,12 @@ const CreateNoteForm = () => {
         </div>
 
         <ReactQuill
+          className="editor"
           modules={modules}
           formats={formats}
           onChange={handleChange}
           value={formData.content}
           placeholder="Tulis isi kontenmu..."
-          style={{ minHeight: "200px" }}
         />
 
         <div id="content-error" aria-live="polite" aria-atomic="true">

@@ -12,8 +12,8 @@ const UpdateNotePage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <section className="bg-blue-100 p-10 min-h-screen">
-      <div className="max-w-screen-lg mx-auto">
+    <section className="bg-blue-100 py-10 min-h-screen">
+      <div className="w-full px-2 md:mx-auto md:max-w-screen-xl">
         <h1 className="font-bold text-slate-700 text-3xl mb-8 text-center">
           Perbarui Catatan
         </h1>

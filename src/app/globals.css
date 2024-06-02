@@ -6,20 +6,28 @@
   background-image: url("/public/assets/grid.svg");
 }
 
-#root .ql-container {
+.ql-container {
+  border: none !important;
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
-  background: #fefcfc;
+  /* background: #fefcfc; */
 }
 
 /* Snow Theme */
-#root .ql-snow.ql-toolbar {
+.ql-snow.ql-toolbar {
+  border: none !important;
   display: block;
   background: #eaecec;
-  border-top-left-radius: 0.5em;
-  border-top-right-radius: 0.5em;
+  /* border-top-left-radius: 0.5em; */
+  /* border-top-right-radius: 0.5em; */
+  border-radius: 0.3em;
 }
 
-#root .ql-editor {
+.ql-editor {
   min-height: 18em;
+}
+
+.editor {
+  margin-top: 1rem;
+  margin-bottom: 8px;
 }
