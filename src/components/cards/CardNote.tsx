@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { CardProps } from "@/types/type";
 import { dateFormat } from "@/lib/dateFormat";
 import { deleteNote } from "@/lib/actions";
@@ -21,7 +20,6 @@ const CardNote: React.FC<CardProps> = ({
   id,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const deleteHandler = () => {
     if (window.confirm("Apakah anda ingin menghapus catatan ini ?")) {
@@ -30,10 +28,6 @@ const CardNote: React.FC<CardProps> = ({
 
       deleteWithId().finally(() => setIsLoading((loading) => !loading));
     }
-  };
-
-  const moveToDetails = () => {
-    // router.push(`/notes/details/${id}`);
   };
 
   if (isLoading) {
@@ -47,15 +41,19 @@ const CardNote: React.FC<CardProps> = ({
   return (
     <div
       className={clsx(
-        "min-h-[190px] p-4 relative bg-slate-100 flex flex-col justify-between h-full border border-slate-400 rounded-md cursor-pointer transform duration-100",
+        "min-h-[190px] p-4 relative bg-slate-100 flex flex-col justify-between h-full border border-slate-400 rounded-md transform duration-100",
         "hover:border-1 hover:border-red-300"
       )}
-      onClick={moveToDetails}
     >
       <div className="top-content">
         <span className="flex justify-between items-start">
-          <span>
-            <h3 className="font-semibold text-slate-700">{title}</h3>
+          <span className="flex flex-col">
+            <Link
+              href={`/notes/details/${id}`}
+              className="font-semibold text-slate-700 line-clamp-1"
+            >
+              {title}
+            </Link>
             <time
               className="text-slate-500 basis-[55%] text-xs sm:text-sm"
               suppressHydrationWarning
@@ -86,7 +84,7 @@ const CardNote: React.FC<CardProps> = ({
       </div>
       <div className="bottom-content flex justify-between items-center mt-2 gap-2">
         <Link
-          className="text-blue-600 basis-[55%] text-sm font-semibold sm:text-base hover:underline"
+          className="text-blue-600 basis-[55%] text-sm font-medium sm:text-base hover:underline hover:text-indigo-600"
           href={`/notes/details/${id}`}
         >
           Baca detail
@@ -103,7 +101,7 @@ const CardNote: React.FC<CardProps> = ({
           )}
         >
           <Link href={`/notes/details/${id}`}>
-            <p className="text-white text-center text-xs font-semibold basis-[45%] px-4 py-2 md:text-sm">
+            <p className="text-white text-center text-xs font-semibold basis-[45%] px-4 py-2">
               {progressLabelNameStyle(status)}
             </p>
           </Link>

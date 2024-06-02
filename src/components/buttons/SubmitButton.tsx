@@ -20,7 +20,10 @@ const SubmitButtons = ({
         "px-4 py-2 pt-2.5 text-white font-semibold rounded-md bg-blue-500 ",
         "hover:bg-blue-600 ",
         "active:bg-blue-500",
-        { "opacity-50 cursor-progress": isSubmitting }
+        {
+          "opacity-50 cursor-progress bg-slate-100 text-slate-700":
+            isSubmitting,
+        }
       )}
     >
       {label == "save" ? (

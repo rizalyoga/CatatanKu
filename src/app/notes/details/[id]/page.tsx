@@ -14,12 +14,12 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
     <section className="bg-blue-100 min-h-screen flex justify-center items-center">
       <article
         className={clsx(
-          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 my-8",
+          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 mb-8 -mt-16",
           "lg:max-w-[800px]"
         )}
       >
         <div className="flex justify-between items-center gap-2">
-          <h1 className="font-bold text-base text-slate-700 mt-1 sm:text-xl md:text-2xl">
+          <h1 className="font-bold text-sm text-slate-700 mt-1 text-wrap basis-[70%] sm:text-xl">
             {note?.title}
           </h1>
           <span
@@ -32,7 +32,7 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
                 : "bg-orange-400"
             )}
           >
-            <p className="text-center font-semibold text-xs text-white px-6 py-2 sm:text-sm sm:font-bold">
+            <p className="text-center font-semibold text-xs text-white px-6 py-2 basis-[30%] sm:text-sm sm:font-bold">
               {progressLabelNameStyle(note?.status as string)}
             </p>
           </span>

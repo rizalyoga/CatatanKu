@@ -6,6 +6,7 @@ import { updateNote } from "@/lib/actions";
 import { useFormState } from "react-dom";
 import type { Notes } from "@prisma/client";
 import SubmitButtons from "../buttons/SubmitButton";
+import FormSkeleton from "../skeleton/FormSkeleton";
 
 import "react-quill/dist/quill.snow.css";
 import { formats, modules } from "@/lib/utils";
@@ -48,9 +49,19 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsSubmitting(false);
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 2000);
     }
   };
+
+  if (isSubmitting) {
+    return (
+      <div className="flex justify-center items-center">
+        <FormSkeleton />
+      </div>
+    );
+  }
 
   return (
     <>

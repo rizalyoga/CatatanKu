@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import ProgressBarProviders from "@/components/progress-bar/ProgressBar";
 import "./globals.css";
+import ProgressBarProviders from "@/components/progress-bar/ProgressBar";
+import Breadcrumb from "@/components/breadcrumbs/Breadcrumbs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ProgressBarProviders>{children}</ProgressBarProviders>
+        <ProgressBarProviders>
+          <Breadcrumb
+            homeElement={"Home"}
+            separator={<span> &gt; </span>}
+            activeClasses="!text-blue-700 mx-2 font-semibold pointer-events-none"
+            listClasses=" text-slate-500 hover:underline mx-2 font-semibold"
+            capitalizeLinks
+          />
+          {children}
+        </ProgressBarProviders>
       </body>
     </html>
   );
