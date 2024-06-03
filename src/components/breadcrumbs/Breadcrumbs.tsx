@@ -1,7 +1,6 @@
 "use client";
 
 import React, { ReactNode } from "react";
-
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
@@ -24,9 +23,6 @@ const Breadcrumb = ({
   const paths = usePathname();
   const pathNames = paths.split("/").filter((path) => path);
 
-  //   console.log(paths);
-  //   console.log("ini PathName : ", pathNames);
-
   return (
     <div
       className={clsx("bg-blue-100 md:px-10", paths === "/" ? "hidden" : "")}
@@ -48,6 +44,10 @@ const Breadcrumb = ({
             ? link[0].toUpperCase() + link.slice(1, link.length)
             : link;
 
+          if (index >= 2) {
+            return;
+          }
+
           return (
             <React.Fragment key={index}>
               <li className={itemClasses}>
@@ -60,10 +60,10 @@ const Breadcrumb = ({
                       : href
                   }
                 >
-                  {itemLink == "Notes" ? `🏠 ${itemLink}` : itemLink}
+                  {itemLink == "Notes" ? `🏠 ${itemLink}` : `${itemLink}`}
                 </Link>
               </li>
-              {pathNames.length !== index + 1 && separator}
+              {pathNames.length !== index + 1 ? separator : ""}
             </React.Fragment>
           );
         })}

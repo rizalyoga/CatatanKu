@@ -47,7 +47,7 @@ const CreateNoteForm = () => {
     } finally {
       setTimeout(() => {
         setIsSubmitting(false);
-      }, 2000);
+      }, 1000);
     }
   };
 

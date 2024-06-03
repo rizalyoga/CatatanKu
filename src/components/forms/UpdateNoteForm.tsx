@@ -51,7 +51,7 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
     } finally {
       setTimeout(() => {
         setIsSubmitting(false);
-      }, 2000);
+      }, 1000);
     }
   };
 

@@ -105,6 +105,7 @@ export const getNoteById = async (id: string) => {
 
     return note;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to fetch note data !");
   }
 };

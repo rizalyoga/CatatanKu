@@ -64,20 +64,23 @@ const CardNote: React.FC<CardProps> = ({
           <span className="flex gap-3">
             <Link
               href={`/notes/edit/${id}`}
-              className="text-2xl "
+              className="text-2xl transform duration-150 hover:scale-125"
               title="edit note"
             >
               📝
             </Link>
             <form action={() => deleteHandler()}>
-              <button className="text-2xl" title="delete note">
+              <button
+                className="text-2xl transform duration-150 hover:scale-125"
+                title="delete note"
+              >
                 🚮
               </button>
             </form>
           </span>
         </span>
         <Link href={`/notes/details/${id}`}>
-          <span className="text-slate-600 line-clamp-3 mt-4">
+          <span className="text-slate-600 line-clamp-3 mt-4 text-sm">
             {parse(content)}
           </span>
         </Link>

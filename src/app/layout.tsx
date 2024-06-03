@@ -22,9 +22,9 @@ export default function RootLayout({
         <ProgressBarProviders>
           <Breadcrumb
             homeElement={"Home"}
-            separator={<span> &gt; </span>}
-            activeClasses="!text-blue-700 mx-2 font-semibold pointer-events-none"
-            listClasses=" text-slate-500 hover:underline mx-2 font-semibold"
+            separator={<span className="text-slate-400 -mt-[2.5px]"> / </span>}
+            activeClasses="text-slate-500 mx-2 text-sm font-medium pointer-events-none"
+            listClasses=" text-slate-500 hover:underline mx-2 text-sm font-medium"
             capitalizeLinks
           />
           {children}

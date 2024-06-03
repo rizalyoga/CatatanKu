@@ -29,7 +29,8 @@ const FilterProgress = () => {
         defaultValue={""}
         className={clsx(
           "bg-white text-base px-4 py-3 border border-slate-200  text-slate-500 rounded-md appearance-none",
-          "focus:outline-none"
+          "hover:border-blue-500",
+          "focus:outline-none focus:border-none"
         )}
         onChange={(e) => filterProgressHandler(e.target.value)}
       >

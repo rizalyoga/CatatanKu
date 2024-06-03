@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-.backgroud-grid {
-  background-image: url("/public/assets/grid.svg");
+.background-grid {
+  background-image: url("/assets/grids.svg");
+  background-color: black;
 }
 
 .ql-container {
