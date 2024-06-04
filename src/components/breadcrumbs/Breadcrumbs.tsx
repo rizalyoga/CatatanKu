@@ -33,10 +33,10 @@ const Breadcrumb = ({
           "md:mx-auto md:max-w-screen-xl"
         )}
       >
-        {/* <li className={listClasses}>
+        <li className="text-base font-medium -mt-1 pr-2 ml-2">
           <Link href={"/"}>{homeElement}</Link>
-        </li> */}
-        {/* {pathNames.length > 0 && separator} */}
+        </li>
+        {pathNames.length > 0 && separator}
         {pathNames.map((link, index) => {
           let href = `/${pathNames.slice(0, index + 1).join("/")}`;
           let itemClasses = paths === href ? ` ${activeClasses}` : listClasses;
@@ -60,7 +60,7 @@ const Breadcrumb = ({
                       : href
                   }
                 >
-                  {itemLink == "Notes" ? `🏠 ${itemLink}` : `${itemLink}`}
+                  {itemLink}
                 </Link>
               </li>
               {pathNames.length !== index + 1 ? separator : ""}

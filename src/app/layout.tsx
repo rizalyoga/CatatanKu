@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ProgressBarProviders>
           <Breadcrumb
-            homeElement={"Home"}
+            homeElement={"🏠"}
             separator={<span className="text-slate-400 -mt-[2.5px]"> / </span>}
             activeClasses="text-slate-500 mx-2 text-sm font-medium pointer-events-none"
             listClasses=" text-slate-500 hover:underline mx-2 text-sm font-medium"
