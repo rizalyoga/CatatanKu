@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
 import { updateNote } from "@/lib/actions";
 import { useFormState } from "react-dom";
@@ -21,6 +22,8 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
   const updateNoteWithId = updateNote.bind(null, note.id);
   const [state, formAction] = useFormState(updateNoteWithId, null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const session = useSession();
+  const userId = session.data?.user?.id;
 
   const [formData, setFormData] = useState({
     title: note.title,
@@ -43,6 +46,7 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
     formDataToSend.append("title", formData.title);
     formDataToSend.append("content", formData.content);
     formDataToSend.append("status", formData.status);
+    formDataToSend.append("authorId", userId as string);
 
     try {
       await formAction(formDataToSend);

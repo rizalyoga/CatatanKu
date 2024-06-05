@@ -1,5 +1,6 @@
 import React from "react";
 import { getNotePages } from "@/lib/data";
+import { getCurrentUser } from "@/lib/session";
 import { Suspense } from "react";
 import CreateButton from "@/components/buttons/CreateButton";
 import Search from "@/components/search/Search";
@@ -17,11 +18,12 @@ const NotesPage = async ({
     progress?: string;
   };
 }) => {
+  const user = await getCurrentUser();
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const progress = searchParams?.progress || "";
 
-  const totalPage = await getNotePages(query, progress);
+  const totalPage = await getNotePages(query, progress, user.id);
 
   return (
     <section className="bg-blue-100 min-h-screen py-1 pb-8 md:px-10">

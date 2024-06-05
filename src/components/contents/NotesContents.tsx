@@ -1,7 +1,10 @@
 import React from "react";
-import { getNotes } from "@/lib/data";
 import clsx from "clsx";
 import CardNote from "@/components/cards/CardNote";
+import { CardProps } from "@/types/type";
+import { getNotes } from "@/lib/data";
+import { cookies } from "next/headers";
+import { getCurrentUser } from "@/lib/session";
 
 interface NotesContentProps {
   query: string;
@@ -9,12 +12,30 @@ interface NotesContentProps {
   currentPage: number;
 }
 
+const fetchNotes = async (
+  query: string,
+  currentPage: number,
+  progress: string
+) => {
+  const res = await fetch(
+    `/api/notes?query=${"percobaan"}&page=${1}&progress=${"done"}`
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch notes data");
+  }
+  return res.json();
+};
+
 const NotesContent: React.FC<NotesContentProps> = async ({
   query,
   currentPage,
   progress,
 }) => {
-  const notes = await getNotes(query, currentPage, progress);
+  const user = await getCurrentUser();
+
+  // const notes = await fetchNotes(query, currentPage, progress);
+  const notes = await getNotes(query, currentPage, progress, user.id);
+  // const notes = [];
 
   const setStatus = (status: string) => {
     switch (status) {
@@ -37,7 +58,7 @@ const NotesContent: React.FC<NotesContentProps> = async ({
         "xl:grid-cols-3"
       )}
     >
-      {notes.map((note) => (
+      {notes?.map((note) => (
         <CardNote
           id={note.id}
           key={note.id}

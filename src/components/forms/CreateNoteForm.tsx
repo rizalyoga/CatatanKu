@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import { saveNote } from "@/lib/actions";
 import { useFormState } from "react-dom";
 import SubmitButtons from "../buttons/SubmitButton";
@@ -24,6 +25,9 @@ const CreateNoteForm = () => {
     status: "",
   });
 
+  const session = useSession();
+  const userId = session.data?.user?.id;
+
   const handleChange = (value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -39,6 +43,7 @@ const CreateNoteForm = () => {
     formDataToSend.append("title", formData.title);
     formDataToSend.append("content", formData.content);
     formDataToSend.append("status", formData.status);
+    formDataToSend.append("authorId", userId as string);
 
     try {
       await formAction(formDataToSend);

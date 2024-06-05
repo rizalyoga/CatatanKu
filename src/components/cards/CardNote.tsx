@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
 import Link from "next/link";
 import { CardProps } from "@/types/type";
@@ -20,11 +21,13 @@ const CardNote: React.FC<CardProps> = ({
   id,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const session = useSession();
+  const userId = session.data?.user?.id;
 
   const deleteHandler = () => {
     if (window.confirm("Apakah anda ingin menghapus catatan ini ?")) {
       setIsLoading((loading) => !loading);
-      const deleteWithId = deleteNote.bind(null, id);
+      const deleteWithId = deleteNote.bind(null, id, userId as string);
 
       deleteWithId().finally(() => setIsLoading((loading) => !loading));
     }

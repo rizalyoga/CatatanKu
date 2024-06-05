@@ -4,12 +4,14 @@ import React, { useEffect, useRef } from "react";
 import clsx from "clsx";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { useSession } from "next-auth/react";
 
 const Search = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const session = useSession();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

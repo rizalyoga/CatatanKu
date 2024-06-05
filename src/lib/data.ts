@@ -5,9 +5,14 @@ const ITEMS_PER_PAGE = 6;
 export const getNotes = async (
   query: string,
   currentPage: number,
-  progress: string
+  progress: string,
+  authorId: string
 ) => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  if (!authorId) {
+    return [];
+  }
 
   try {
     const notes = await prisma.notes.findMany({
@@ -15,6 +20,9 @@ export const getNotes = async (
       take: ITEMS_PER_PAGE,
       where: {
         AND: [
+          {
+            authorId: authorId,
+          },
           {
             OR: [
               {
@@ -32,14 +40,10 @@ export const getNotes = async (
             ],
           },
           {
-            OR: [
-              {
-                status: {
-                  contains: progress,
-                  mode: "insensitive",
-                },
-              },
-            ],
+            status: {
+              contains: progress,
+              mode: "insensitive",
+            },
           },
         ],
       },
@@ -54,11 +58,16 @@ export const getNotes = async (
   }
 };
 
-export const getNotePages = async (query: string, progress: string) => {
+export const getNotePages = async (
+  query: string,
+  progress: string,
+  authorId: string
+) => {
   try {
     const notes = await prisma.notes.count({
       where: {
         AND: [
+          { authorId: authorId },
           {
             OR: [
               {
@@ -76,14 +85,10 @@ export const getNotePages = async (query: string, progress: string) => {
             ],
           },
           {
-            OR: [
-              {
-                status: {
-                  contains: progress,
-                  mode: "insensitive",
-                },
-              },
-            ],
+            status: {
+              contains: progress,
+              mode: "insensitive",
+            },
           },
         ],
       },
