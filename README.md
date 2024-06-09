@@ -11,6 +11,12 @@ Hanya percobaan menggunakan prisma dan next-js 14
 - Pagination
 - Filter catatan berdasarkan progres
 
+## 📹 Demo
+
+https://github.com/rizalyoga/CatatanKu/assets/28485636/44fc7745-0986-4457-b642-36a22a6f7e10
+
+
+
 ## Getting Started
 
 First, run the development server:
