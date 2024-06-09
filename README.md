@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Hanya percobaan menggunakan prisma dan next-js 14
+
+## 🔮 Fitur
+
+- Autentikasi user
+- Membuat catatan
+- Melihat detail catatan
+- Edit catatan
+- Hapus catatan
+- Pencarian catatan
+- Pagination
+- Filter catatan berdasarkan progres
 
 ## Getting Started
 

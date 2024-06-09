@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className=" min-h-screen flex justify-center items-center flex-col bg-orange-100">
       <h1 className="text-blue-400 text-6xl text-center font-extrabold mb-5 tracking-tighter">
-        CatatanKu
+        Catatan<span className="text-[#FFD247]">Ku</span>
       </h1>
       <Image
         src={"/assets/note-task.svg"}
