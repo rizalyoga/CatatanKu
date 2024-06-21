@@ -14,7 +14,7 @@ const DetailsNote = async ({ params }: { params: { id: string } }) => {
     <section className="bg-blue-100 min-h-screen flex justify-center items-center">
       <article
         className={clsx(
-          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 mb-8 -mt-16",
+          "bg-white p-4 rounded-md border border-slate-300 w-full mx-4 mb-8 -mt-16 shadow-2xl",
           "lg:max-w-[800px]"
         )}
       >

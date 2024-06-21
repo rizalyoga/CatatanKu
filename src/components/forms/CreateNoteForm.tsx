@@ -17,13 +17,14 @@ const ReactQuill = dynamic(() => import("react-quill"), {
 });
 
 const CreateNoteForm = () => {
-  const [state, formAction] = useFormState(saveNote, null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     status: "",
   });
+
+  const [state, formAction] = useFormState(saveNote, null);
 
   const session = useSession();
   const userId = session.data?.user?.id;
@@ -52,17 +53,9 @@ const CreateNoteForm = () => {
     } finally {
       setTimeout(() => {
         setIsSubmitting(false);
-      }, 1000);
+      }, 10000);
     }
   };
-
-  if (isSubmitting) {
-    return (
-      <div className="flex justify-center items-center">
-        <FormSkeleton />
-      </div>
-    );
-  }
 
   return (
     <>

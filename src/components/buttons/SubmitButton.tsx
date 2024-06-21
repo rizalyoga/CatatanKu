@@ -10,8 +10,6 @@ const SubmitButtons = ({
   label: string;
   isSubmitting: boolean;
 }) => {
-  const { pending } = useFormStatus();
-
   return (
     <button
       type="submit"

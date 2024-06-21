@@ -55,17 +55,9 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
     } finally {
       setTimeout(() => {
         setIsSubmitting(false);
-      }, 1000);
+      }, 10000);
     }
   };
-
-  if (isSubmitting) {
-    return (
-      <div className="flex justify-center items-center">
-        <FormSkeleton />
-      </div>
-    );
-  }
 
   return (
     <>
@@ -92,17 +84,7 @@ const UpdateNoteForm = ({ note }: { note: Notes }) => {
           <div id="title-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.Error?.title}</p>
           </div>
-          {/* <textarea
-            name="content"
-            id="content"
-            placeholder="Write your content..."
-            className={clsx(
-              "border-none mt-2 px-2 py-2 text-slate-600",
-              "focus:border-none focus:outline-none"
-            )}
-            defaultValue={note.content}
-            rows={10}
-          /> */}
+
           <div id="content-error" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state?.Error?.content}</p>
           </div>

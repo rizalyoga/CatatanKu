@@ -24,7 +24,6 @@ const Breadcrumb = ({
   const paths = usePathname();
   const pathNames = paths.split("/").filter((path) => path);
   const session = useSession();
-  console.log(session);
 
   return (
     <div

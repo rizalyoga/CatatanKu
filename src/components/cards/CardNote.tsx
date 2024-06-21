@@ -44,7 +44,7 @@ const CardNote: React.FC<CardProps> = ({
   return (
     <div
       className={clsx(
-        "min-h-[190px] p-4 relative bg-slate-100 flex flex-col justify-between h-full border border-slate-400 rounded-md transform duration-100",
+        "min-h-[190px] p-4 relative bg-slate-100 flex flex-col justify-between h-full border border-slate-400 rounded-md transform duration-100 shadow-sm",
         "hover:border-1 hover:border-red-300"
       )}
     >
